@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Texts</title>
+	</head>
+	<body>
+		<div class="container">
+  			<div class="jumbotron">
+  				<h1>Welcome <%= @user.username %></h1>
+  				<h2>Find A Book</h2>
+  			</div>
+  		</div>
+
+  		<form action='/texts/sort' method='post'>
+  			<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+  			<input type="hidden" name="sort" value="title">
+  			By Title: 
+  			<select name='title'>
+	  			<% @titles.each do |title| %>
+	  				<option value='<%= title %>' > <%=title%> </option>
+	  			<%end%>
+	  			<input type="submit" value='Search'>
+  			</select>
+  		</form>
+
+  		<form action='/texts/sort' method='post'>
+  			<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+  			<input type="hidden" name="sort" value="author">
+  			By Author: 
+  			<select name='author'>
+	  			<% @authors.uniq.each do |author| %>
+	  				<option value='<%= author %>' > <%=author%> </option>
+	  			<%end%>
+	  			<input type="submit" value='Search'>
+  			</select>
+  		</form>
+
+  		<form action='/texts/sort' method='post'>
+  			<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+  			<input type="hidden" name="sort" value="subject">
+  			By Subject: 
+  			<select name='subject'>
+	  			<% @subjects.uniq.each do |subject| %>
+	  				<option value='<%= subject %>' > <%=subject%> </option>
+	  			<%end%>
+	  			<input type="submit" value='Search'>
+  			</select>
+  		</form>
+
+	</body>
+</html>

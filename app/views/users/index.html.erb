@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+	<div class='col-sm-6 container'>
+		<h1>Not a member? Register Now!</h1>
+		<form action='/users' method='post' class='form-group' >
+			<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+			<label for='name' class='col-sm-2' >Name:</label>
+			<input type="text" name="user[name]" id='name' class='col-sm-4'>
+			<div class='container'>
+				<label for='username'  > Username:</label>
+				<input type="text" name="user[username]" id='username' >
+			</div>
+			<label for='email' class='col-sm-2' > Email:</label>
+			<input type="email" name="user[email]"  id='email' class='col-sm-4'>
+			<label for='password' class='col-sm-2'> Password:</label>
+			<input type="password" name="user[password]"  id='password' class='col-sm-4'>
+			<label for='confirmation' class='col-sm-2' > Password Confirm:</label>
+			<input type="password" name="user[password_confirmation]" id='confirmation' class='col-sm-4'><br><br>
+			<input type="submit" value="Register Now"  id='submit-btn'>
+		</form>
+
+		<% if flash[:errors] %>
+			<% flash[:errors].each do |error| %>
+			<%= error %> <br>
+			<% end %>
+		<% end %>
+	</div>
+
+	<div class='col-sm-6 container'>
+		<h1>Already a Member? Login Below!</h1>
+		<form action='/users/login' method='post'>
+			<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+			Email: <input type='email' name='user[email]'>
+			Password<input type='password' name='user[password]'>
+			<input type='submit' value='Login'>
+		</form>
+
+		<% if flash[:notice] %>
+			<%= flash[:notice] %>
+		<% end %>
+	</div>
+
+</body>
+</html>

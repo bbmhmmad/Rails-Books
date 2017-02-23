@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Texts</title>
+	</head>
+	<body>
+		All Matches:
+		
+		<% if @texts %>
+			<% @texts.each do |text| %>
+				<a href="/texts/<%=text.id%>"><%= text.title%></a>
+			<% end %>
+		<% end %>
+
+	</body>
+</html>

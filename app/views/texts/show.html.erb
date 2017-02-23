@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title></title>
+	</head>
+	<body>	
+		<h1>Title: <%= @text.title %></h1>
+		
+		<h2>Author: <%= @text.author %></h2>
+
+		<h3>Average Rating: 
+
+		<% if @text.reviews.exists? %>
+			<%= @book_rating %></h3>
+		<% end %>
+
+		<div class='col-sm-12'>
+			<div class='col-sm-4'>
+				<h3>Latest Review</h3>
+				<% if @text.reviews.exists? %>
+					<%= @text.reviews.last.user.username %> says <br> <%=@text.reviews.last.review %>
+				<% end %><br>
+				<a href="/reviews/<%= @text.id %>">Check Out Reviews</a>
+			</div>
+
+			<div class='col-sm-4'>
+				<h3>Latest Comment </h3>
+				<% if @text.comments.exists? %>
+					<%= @text.comments.last.comment %><br>
+				<% end %>
+				<a href="/forums/<%= @text.id %>">Join the Discussion</a>
+
+			</div>
+
+			<div class='col-sm-4'>
+				<h3>More info</h3>
+				<a href="/info">Read this Book Online</a>
+			</div>
+		</div>
+	</body>
+</html>

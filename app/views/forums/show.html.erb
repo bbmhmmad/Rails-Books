@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Forum</title>
+
+		 <script>
+		
+		$(function(){
+		 	$('#tabs').tabs();
+		 	<% @text.forums.each do |chapter|  %>
+		    	$('#accordion<%=chapter.id%>').accordion({collapsible:true,active:false,heightStyle:'content'});
+		    <% end %>
+
+		});
+
+  		</script>
+	</head>
+<body>
+	<div id="tabs">
+	  <ul>
+	  	<% @text.forums.each do |chapter|  %>
+	  		<li class="panel"><a href="#tabs-<%=chapter.id%>"><%=chapter.name %></a></li>
+	  	<% end  %>
+	  </ul>
+
+	  <% @text.forums.each do |chapter|  %>
+	  	<div id="tabs-<%=chapter.id%>" >
+	  		<form action='/posts' method='post'>
+	  			<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+	  			<input type="hidden" name="forum" value="<%= chapter.id %>">
+	  			<!-- <input type="text" name="post[post]"> -->
+	  			<textarea name='post[post]'> </textarea>
+	  			<input type="submit" value="Start a new discussion">
+	  		</form>
+	  		<div id="accordion<%= chapter.id %>">
+	  	
+	  			<% chapter.posts.order('created_at DESC').each do |post| %>
+	  				<h3><%= post.user.username %> posted: <%= post.post %> @ <%= post.created_at.strftime("%m/%d/%Y")%> <br>This post has <b> <%= post.comments.count %> </b> comment(s). </h3>
+
+
+
+
+	  				<div>
+
+	  					<form action='/comments' method='post'>
+				  			<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+				  			<input type="hidden" name="forum" value="<%= chapter.id %>">
+				  			<input type="hidden" name="post" value="<%= post.id %>">
+				  			<!-- <input type="text" name="post[post]"> -->
+				  			<textarea name='comment[comment]'> </textarea>
+				  			<input type="submit" value="Comment on this post">
+				  		</form>
+
+
+
+
+
+	  					<% post.comments.each do |comment| %>
+	  						<p> <%= comment.user.username %> commented: <%= comment.comment %> @ <%= comment.created_at.strftime("%m/%d/%Y")%></p>  
+	  						<% if comment.replies %>
+		  						<% @replies_count=comment.replies.count %>
+		  							<a href="/comments/<%= comment.id %>"> This comment has <%= @replies_count %> replies.</a>
+		  							<br>
+		  						
+		  					<% end %>
+	  					<% end %>
+	  				</div>
+	  			<% end %>
+
+	  		</div>
+	  	</div>
+	  <% end  %>
+
+	</div>
+</body>
+</html>

@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Reviews</title>
+
+		<script>
+			$(document).ready (function(){
+				$(function(){
+				 	$('#tabs').tabs();
+				 	<% @reviews.each do |review|  %>
+				    	$('#accordion<%= review.id%>').accordion({collapsible:true,active:false,heightStyle:'content'});
+				    <% end %>
+
+				})
+			});
+
+  		</script>
+
+	</head>
+	<body>
+
+		<div id="tabs">
+
+
+		  <ul>
+		    <li><a href="#tabs-1">5 STAR REVIEWS</a></li>
+		    <li><a href="#tabs-2">4 STAR REVIEWS</a></li>
+		    <li><a href="#tabs-3">3 STAR REVIEWS</a></li>
+		    <li><a href="#tabs-4">2 STAR REVIEWS</a></li>
+		    <li><a href="#tabs-5">1 STAR REVIEWS</a></li>
+		    <li><a href="#tabs-6">ADD REVIEW FOR THIS BOOK</a></li>
+		  </ul>
+
+		    <div id="tabs-1">
+		    	
+		    	<% @five_star_reviews.each do |review| %>
+		    		<div id="accordion<%= review.id %>" >
+
+		    			  <h3><%= review.title %> by <%= review.user.name %> </h3>
+						  <div>
+						    <p>
+						  		On <%= review.created_at.strftime("%m/%d/%Y") %>: <%= review.review %>
+						    </p>
+						  </div>
+
+		    		</div>
+		    	<% end %>
+
+		  	</div>
+
+
+		    <div id="tabs-2">
+		    	
+		    	<% @four_star_reviews.each do |review| %>
+		    		<div id="accordion<%=review.id %>" >
+
+		    			  <h3><%= review.title %> by <%= review.user.name %> </h3>
+						  <div>
+						    <p>
+						  		On <%= review.created_at.strftime("%m/%d/%Y") %>: <%= review.review %>
+						    </p>
+						  </div>
+
+		    		</div>
+		    	<% end %>
+
+		  	</div>
+
+
+
+		  	<div id="tabs-3">
+		    	
+		  		<% @three_star_reviews.each do |review| %>
+		    		<div id="accordion<%=review.id %>" >
+
+		    			  <h3><%= review.title %> by <%= review.user.name %> </h3>
+						  <div>
+						    <p>
+						  		On <%= review.created_at.strftime("%m/%d/%Y") %>: <%= review.review %>
+						    </p>
+						  </div>
+
+		    		</div>
+		    	<% end %>
+
+
+
+		  	</div>
+
+
+		  	<div id="tabs-4">
+		    		
+		  		<% @two_star_reviews.each do |review| %>
+		    		<div id="accordion<%=review.id %>" >
+
+		    			  <h3><%= review.title %> by <%= review.user.name %> </h3>
+						  <div>
+						    <p>
+						  		On <%= review.created_at.strftime("%m/%d/%Y") %>: <%= review.review %>
+						    </p>
+						  </div>
+
+		    		</div>
+		    	<% end %>
+
+
+		  	</div>
+
+
+		  	<div id="tabs-5">
+		    	
+		  		<% @one_star_reviews.each do |review| %>
+		    		<div id="accordion<%=review.id %>" >
+
+		    			  <h3><%= review.title %> by <%= review.user.name %> </h3>
+						  <div>
+						    <p>
+						  		On <%= review.created_at.strftime("%m/%d/%Y") %>: <%= review.review %>
+						    </p>
+						  </div>
+
+		    		</div>
+		    	<% end %>
+
+
+		  	</div>
+
+		  	<div id="tabs-6">
+		    	
+		  	<form action='/reviews' method='post'>
+		  		<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+		  		<input type="hidden" name="text" value="<%= @text.id %>">
+		  		Title: <input type="text" name="review[title]"><br><br>
+		  		Review:<textarea name='review[review]'> </textarea><br>
+		  		Rating: 
+		  		<select name='review[rating]'>
+		  			<option value=5>5</option>
+		  			<option value=4>4</option>
+		  			<option value=3>3</option>
+		  			<option value=2>2</option>
+		  			<option value=1>1</option>
+		  			
+		  		</select>
+		  		<input type="submit" value="Submit Review">
+		  	</form>
+
+
+		  	</div>
+
+
+		</div>
+
+
+	</body>
+</html>
+
+
+
+

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Replies</title>
+	</head>
+	<body>
+		<div class='col-sm-12 ' >
+			<h2>Comment:</h2>
+			<h3><%= @comment.user.name %> said <%= @comment.comment %></h3>
+			<ul>
+				<% @comment.replies.each do |reply| %>
+					<li><%= reply.user.name %> says: <%= reply.reply %> @ <%= reply.created_at.strftime("%m/%d/%Y") %> </li>
+				<% end %>
+			</ul>
+
+			<form action='/replies' method='post'>
+				<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+				<input type="hidden" name="comment" value="<%= @comment.id %>">
+				<textarea name='reply[reply]'> </textarea>
+				<input type="submit" value="Reply to this Comment">
+			</form>
+		</div>
+	</body>
+</html>
